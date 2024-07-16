@@ -26,16 +26,16 @@ pipeline{
         }
 
         
-    //     stage('deploye'){
-    //         steps{
-    //             script{
+        // stage('deploye'){
+        //     steps{
+        //         script{
                    
-    //                 build job: 'backend-deploye', parameters: [string(name: 'targetEnvironment', value: 'stage')], propagate: false
-    //             }
-    //         }
+        //             build job: 'backend-deploye', parameters: [string(name: 'targetEnvironment', value: 'stage')], propagate: false
+        //         }
+        //     }
         
-    //     }
-    // }
+        // }
+    }
     post{
         always{
             echo "when pipline useing "
