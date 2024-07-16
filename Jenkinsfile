@@ -16,10 +16,10 @@ pipeline{
 
     }
     stages{
-        stage('read the version'){
+        stage('print the version'){
             steps{
                 sh"""
-                echo "application version: ${paramas.appVersion}"
+                echo "application version: ${params.appVersion}"
                 """
                 
             }
