@@ -1,54 +1,64 @@
-pipeline{
+pipeline {
     agent {
         label 'AGENT-1'
     }
     options {
-        timeout(time: 15, unit: 'MINUTES') 
+        timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
+    parameters {
+        string(name: 'appVersion', defaultValue: '1.0.0', description: 'What is the application version?')
+    }
     environment{
-        def appVersion = ''
-        def nexusUrl='54.235.229.243:8081/repository/backend'
+        def appVersion = '' //variable declaration
+        nexusUrl = 'nexus.daws78s.online:8081'
     }
-     parameters {
-        string(name: 'appVersion', defaultValue: '1.0.0', description: 'what is the application version ?')
-
-    }
-    stages{
+    stages {
         stage('print the version'){
             steps{
-                sh"""
-                echo "application version: ${params.appVersion}"
-                """
-                
-            }
-        }
-
-        
-        stage('deploye'){
-            steps{
-                dnf params = [
-                    string(name: 'appVersion', value: 'stage')
-                ]
                 script{
-                   
-                    build job: 'backend-deploye', parameters: [], propagate: false
+                    echo "Application version: ${params.appVersion}"
                 }
             }
-        
         }
+        // stage('Init'){
+        //     steps{
+        //         sh """
+        //             cd terraform
+        //             terraform init
+        //         """
+        //     }
+        // }
+        // stage('Plan'){
+        //     steps{
+        //         sh """
+        //             pwd
+        //             cd terraform
+        //             terraform plan -var="app_version=${params.appVersion}"
+        //         """
+        //     }
+        // }
+
+        // stage('Deploy'){
+        //     steps{
+        //         sh """
+        //             cd terraform
+        //             terraform apply -auto-approve -var="app_version=${params.appVersion}"
+        //         """
+        //     }
+        // }
     }
-    post{
-        always{
-            echo "when pipline useing "
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
             deleteDir()
         }
-         success{
-            echo "when pipeline sucess"
+        success { 
+            echo 'I will run when pipeline is success'
         }
-         failure{
-            echo "when pipeline faild "
+        failure { 
+            echo 'I will run when pipeline is failure'
         }
     }
-} 
+}
