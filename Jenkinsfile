@@ -24,8 +24,35 @@ pipeline{
                 
             }
         }
+        stage('init'){
+            steps{
+                sh"""
+                cd terraform
+                terraform init 
+                """
+            }
+        }
+        stage('plan'){
+            steps{
+                sh"""
+                cd terraform
+                terraform plan -var="app_version=${params.appVersion}"
+                """
+            }
+        }
+        // stage('deploy'){
+        //     steps{
+        //         sh"""
+        //         cd terraform
+        //         terraform init 
+        //         """
+        //     }
+        // }
+       
        
     }
+    
+    
     post{
         always{
             echo "when pipline useing "
