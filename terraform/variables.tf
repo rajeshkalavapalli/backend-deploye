@@ -29,5 +29,5 @@ variable "zone_name" {
 }
 
 variable "app_version" {
-  default = "bigmatrix.in"
+  
 }
