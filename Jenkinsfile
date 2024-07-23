@@ -1,64 +1,41 @@
-pipeline {
+pipeline{
     agent {
         label 'AGENT-1'
     }
     options {
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 15, unit: 'MINUTES') 
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    parameters {
-        string(name: 'appVersion', defaultValue: '1.0.0', description: 'What is the application version?')
-    }
     environment{
-        def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.daws78s.online:8081'
+        def appVersion = ''
+        def nexusUrl='44.202.115.103:8081/repository/backend'
     }
-    stages {
-        stage('print the version'){
+     parameters {
+        string(name: 'appVersion', defaultValue: '1.0.0', description: 'what is the appversion?')
+
+    }
+    stages{
+        stage('print the the version'){
             steps{
                 script{
-                    echo "Application version: ${params.appVersion}"
+                   echo "application version is ${params.appVersion}"
                 }
+                
             }
         }
-        // stage('Init'){
-        //     steps{
-        //         sh """
-        //             cd terraform
-        //             terraform init
-        //         """
-        //     }
-        // }
-        // stage('Plan'){
-        //     steps{
-        //         sh """
-        //             pwd
-        //             cd terraform
-        //             terraform plan -var="app_version=${params.appVersion}"
-        //         """
-        //     }
-        // }
-
-        // stage('Deploy'){
-        //     steps{
-        //         sh """
-        //             cd terraform
-        //             terraform apply -auto-approve -var="app_version=${params.appVersion}"
-        //         """
-        //     }
-        // }
+       
     }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
+    post{
+        always{
+            echo "when pipline useing "
             deleteDir()
         }
-        success { 
-            echo 'I will run when pipeline is success'
+         success{
+            echo "when pipeline sucess"
         }
-        failure { 
-            echo 'I will run when pipeline is failure'
+         failure{
+            echo "when pipeline faild "
         }
     }
-}
+} 
