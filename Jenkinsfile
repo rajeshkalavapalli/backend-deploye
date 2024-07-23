@@ -40,16 +40,15 @@ pipeline{
                 """
             }
         }
-        // stage('deploy'){
-        //     steps{
-        //         sh"""
-        //         cd terraform
-        //         terraform init 
-        //         """
-        //     }
-        // }
-       
-       
+        stage('deploy'){
+            steps{
+                sh"""
+                cd terraform
+                terraform apply -auto-approve 
+                """
+            }
+        }
+          
     }
     
     
