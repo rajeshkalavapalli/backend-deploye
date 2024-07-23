@@ -35,7 +35,7 @@ triggers = {
     provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/backend.sh",
-      "sudo sh /tmp/backend.sh ${var.common_tags.component} ${var.environment}${var.app_version}"
+      "sudo sh /tmp/backend.sh ${var.common_tags.component} ${var.environment} ${var.app_version}"
 
       
     ]
